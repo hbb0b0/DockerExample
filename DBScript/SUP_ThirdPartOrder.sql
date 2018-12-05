@@ -1,0 +1,136 @@
+USE [master]
+GO
+/****** Object:  Database [SUP_ThirdPartOrder]    Script Date: 2018/12/5 18:30:06 ******/
+CREATE DATABASE [SUP_ThirdPartOrder]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'SUP_ThirdPartOrder', FILENAME = N'D:\MSSQL\DATA\SUP_ThirdPartOrder.mdf' , SIZE = 101376KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON 
+( NAME = N'SUP_ThirdPartOrder_log', FILENAME = N'D:\MSSQL\DATA\SUP_ThirdPartOrder_log.ldf' , SIZE = 568896KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET COMPATIBILITY_LEVEL = 110
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [SUP_ThirdPartOrder].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET AUTO_CREATE_STATISTICS ON 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET RECOVERY FULL 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET  MULTI_USER 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'SUP_ThirdPartOrder', N'ON'
+GO
+USE [SUP_ThirdPartOrder]
+GO
+/****** Object:  Table [dbo].[Order]    Script Date: 2018/12/5 18:30:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Order](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[OrderTemplateID] [int] NOT NULL,
+	[OrderNum] [nvarchar](200) NOT NULL,
+	[JSON] [nvarchar](1000) NOT NULL,
+	[Status] [smallint] NOT NULL,
+	[OrderStatus] [smallint] NOT NULL,
+	[InDate] [datetime] NOT NULL,
+	[NoticeResult] [nvarchar](500) NULL,
+	[NoticeTime] [datetime] NULL,
+ CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Order_Template]    Script Date: 2018/12/5 18:30:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Order_Template](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[TemplateName] [nvarchar](50) NOT NULL,
+	[ResponseType] [char](10) NULL,
+	[SubmitSuccess] [nvarchar](1024) NULL,
+	[SubmitFail] [nvarchar](1024) NULL,
+	[SubmitFailRate] [decimal](18, 2) NOT NULL,
+	[QueryResponse] [nvarchar](1024) NULL,
+	[NoticeParam] [nvarchar](1024) NOT NULL,
+	[NoticeURI] [nvarchar](1024) NULL,
+	[NoticeURL] [varchar](1024) NOT NULL,
+	[NoticeSign] [nvarchar](128) NULL,
+	[QueryBalance] [nvarchar](1024) NOT NULL,
+	[SecretKey] [nvarchar](50) NULL,
+	[InDate] [datetime] NULL
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+ALTER TABLE [dbo].[Order] ADD  CONSTRAINT [DF_Order_OrderStatus]  DEFAULT ((0)) FOR [OrderStatus]
+GO
+ALTER TABLE [dbo].[Order_Template] ADD  CONSTRAINT [DF_Order_Template_SubmitFailRate]  DEFAULT ((1.00)) FOR [SubmitFailRate]
+GO
+USE [master]
+GO
+ALTER DATABASE [SUP_ThirdPartOrder] SET  READ_WRITE 
+GO

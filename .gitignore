@@ -3,3 +3,5 @@
 ################################################################################
 
 /bin/Debug
+/.vs/ThirdPartOrderProcess/v15/Server/sqlite3
+/obj
