@@ -2,6 +2,8 @@
 # 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
 ################################################################################
 
-/WebAPIForDocker/bin
-/.vs/DockerExample/v15
-/WebAPIForDocker/obj
+/bin/Debug
+/.vs/ThirdPartOrderProcess/v15/Server/sqlite3
+/obj
+/bin/Release/netcoreapp2.1
+/.vs
