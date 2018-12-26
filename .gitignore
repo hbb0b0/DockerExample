@@ -5,3 +5,5 @@
 /bin/Debug
 /.vs/ThirdPartOrderProcess/v15/Server/sqlite3
 /obj
+/bin/Release/netcoreapp2.1
+/.vs

@@ -105,8 +105,11 @@ namespace ThirdPartOrderProcess.Controllers
             model.OrderTemplateID = CurrentOrderTemplateModel.ID;
             model.OrderStatus = orderStatus;
             int result = DBHelper.Insert(model);
-            //m_Logger.LogInformation(str);
+           
+
             RequestOK requestResult=new RequestOK(0,result.ToString(),"OK");
+
+            m_Logger.LogInformation($"jRecharge:{JsonConvert.SerializeObject(requestResult)} ");
             //return CurrentOrderTemplateModel.SubmitSuccess;
             return requestResult;
         }
@@ -153,7 +156,7 @@ namespace ThirdPartOrderProcess.Controllers
             }
 
             string str=  JsonConvert.SerializeObject(result);
-             m_Logger.LogDebug(str);
+             m_Logger.LogInformation($"orderQuery:{str}");
             
             return result;
         }

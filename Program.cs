@@ -15,6 +15,8 @@ namespace ThirdPartOrderProcess
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseUrls("http://*:5000")
+                //7030 用于215模拟供货商接口
+                //.UseUrls("http://*:7030")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()

@@ -44,7 +44,7 @@ namespace ThirdPartOrderProcess.Common
                 }
 
                 HttpResponseMessage resp = await client.PostAsync(tokenUri, content);
-                resp.EnsureSuccessStatusCode();
+                //resp.EnsureSuccessStatusCode();
                 result = await resp.Content.ReadAsStringAsync();
             }
             catch(Exception ex)

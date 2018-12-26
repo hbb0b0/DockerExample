@@ -110,9 +110,8 @@ namespace ThirdPartOrderProcess.Job
             //GetWorkList
 
             List<OrderModel> list = DBHelper.GetWorkList();
-            string strMsg = string.Format($"Time:{DateTime.Now} XiaMenQBiNotice:Count:{list.Count}");
+            //string strMsg = string.Format($"Time:{DateTime.Now} XiaMenQBiNotice:Count:{list.Count}");
 
-            m_logger.LogInformation(strMsg);
             foreach (OrderModel orderItem in list)
             {
                 var result = await m_httpTool.HttpPostAsync(
@@ -121,8 +120,8 @@ namespace ThirdPartOrderProcess.Job
                       GetKeyValuePairList(orderItem)
                     );
                 DBHelper.UpdateOrderNoticeInfo(orderItem.ID, result);
-                Console.WriteLine($"HttpPostAsync:{result}");
-
+                //Console.WriteLine($"Notice:HttpPostAsync:{result}");
+                m_logger.LogInformation($"Notice:HttpPostAsync:{result}");
 
             }
 
