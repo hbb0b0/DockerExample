@@ -28,13 +28,12 @@ namespace ThirdPartOrderProcess.Common
         public  async Task<string> HttpPostAsync(string uri, string url, List<KeyValuePair<string, string>> formData = null, string charset = "UTF-8", string mediaType = "application/x-www-form-urlencoded")
         {
             string result = null;
-            string tokenUri = url;
+            string realUrl = string.Format($"{uri}{url}");
             try
             {
-                var client = new HttpClient
-                {
-                    BaseAddress = new Uri(uri)
-                };
+                //uri 与 url 区别见https://www.cnblogs.com/wuyun-blog/p/5706703.html
+                var client = new HttpClient();
+               
                 HttpContent content = new FormUrlEncodedContent(formData);
                 content.Headers.ContentType = new MediaTypeHeaderValue(mediaType);
                 content.Headers.ContentType.CharSet = charset;
@@ -43,15 +42,16 @@ namespace ThirdPartOrderProcess.Common
                     content.Headers.Add(formData[i].Key, formData[i].Value);
                 }
 
-                HttpResponseMessage resp = await client.PostAsync(tokenUri, content);
+                HttpResponseMessage resp = await client.PostAsync(realUrl, content);
                 //resp.EnsureSuccessStatusCode();
                 result = await resp.Content.ReadAsStringAsync();
             }
             catch(Exception ex)
             {
-                m_Logger.LogError("HttpPostAsync:Exception{0}",ex.Message);
+                m_Logger.LogError(string.Format($"HttpPostAsync:Exception{ex.Message} url:{realUrl}"));
                 //Console.WriteLine($"HttpPostAsync:Exception{ex.Message}");
-                
+
+
             }
             return result;
         }

@@ -6,6 +6,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\Work\My\opensource\Dotnet2\WebAPIForDocker\bin\Debug\netcoreapp2.1\publish\</_PublishTargetUrl>
+    <_PublishTargetUrl>bin\Debug\netcoreapp2.1\publish\</_PublishTargetUrl>
   </PropertyGroup>
 </Project>

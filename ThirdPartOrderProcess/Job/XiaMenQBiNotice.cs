@@ -114,6 +114,7 @@ namespace ThirdPartOrderProcess.Job
 
             foreach (OrderModel orderItem in list)
             {
+                m_logger.LogInformation(string.Format($"Notice start:HttpPostAsync:{CurrentOrderTemplateModel.NoticeURI}+{CurrentOrderTemplateModel.NoticeURL}"));
                 var result = await m_httpTool.HttpPostAsync(
                       CurrentOrderTemplateModel.NoticeURI,
                       CurrentOrderTemplateModel.NoticeURL,
@@ -121,7 +122,7 @@ namespace ThirdPartOrderProcess.Job
                     );
                 DBHelper.UpdateOrderNoticeInfo(orderItem.ID, result);
                 //Console.WriteLine($"Notice:HttpPostAsync:{result}");
-                m_logger.LogInformation($"Notice:HttpPostAsync:{result}");
+                m_logger.LogInformation($"Notice end:HttpPostAsync:{result}");
 
             }
 

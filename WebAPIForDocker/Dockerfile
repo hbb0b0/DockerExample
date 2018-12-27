@@ -4,10 +4,10 @@ EXPOSE 80
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY ["../WebAPIForDocker/WebAPIForDocker.csproj", "../WebAPIForDocker/"]
-RUN dotnet restore "../WebAPIForDocker/WebAPIForDocker.csproj"
+COPY ["WebAPIForDocker/WebAPIForDocker.csproj", "WebAPIForDocker/"]
+RUN dotnet restore "WebAPIForDocker/WebAPIForDocker.csproj"
 COPY . .
-WORKDIR "/src/../WebAPIForDocker"
+WORKDIR "/src/WebAPIForDocker"
 RUN dotnet build "WebAPIForDocker.csproj" -c Release -o /app
 
 FROM build AS publish

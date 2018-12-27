@@ -30,7 +30,7 @@ namespace WebAPIForDocker
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
             .UseKestrel()
-               .UseUrls("http://*:5001")
+               .UseUrls("http://*:5000")
              .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>();
     }
